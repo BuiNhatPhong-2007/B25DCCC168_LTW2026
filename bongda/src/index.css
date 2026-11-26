@@ -1,0 +1,319 @@
+/* ===== Nền tảng ===== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+/* ===== Bảng màu theo chủ đề ===== */
+.app {
+  --accent: #2f80ed;
+  --accent-soft: rgba(47, 128, 237, 0.12);
+  --gold: #f5b301;
+  --radius: 14px;
+  min-height: 100vh;
+  padding: 0 24px 56px;
+  transition: background 0.25s, color 0.25s;
+}
+.app.light {
+  background: #ffffff;
+  color: #18212c;
+  --card: #f5f8fc;
+  --card-border: #e1e8f1;
+  --row-alt: rgba(47, 128, 237, 0.045);
+  --muted: #5c6b7f;
+  --field: #ffffff;
+  --field-border: #c5d0de;
+  --shadow: 0 6px 20px rgba(24, 33, 44, 0.07);
+}
+.app.dark {
+  background: #1f2430;
+  color: #e8eaf0;
+  --card: #272d3b;
+  --card-border: #363e50;
+  --row-alt: rgba(255, 255, 255, 0.035);
+  --muted: #9aa5b8;
+  --field: #1f2430;
+  --field-border: #465068;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Tiêu đề trang ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 18px 0 14px;
+  background: inherit;
+  border-bottom: 1px solid var(--card-border);
+}
+h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #2f80ed, #56ccf2 60%, #27ae60);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+header::before { content: '⚽'; font-size: 1.6rem; margin-right: 10px; }
+
+/* ===== Các khối nội dung dạng thẻ ===== */
+section {
+  max-width: 1040px;
+  margin: 22px auto 0;
+  padding: 20px 22px 22px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+}
+h2::before {
+  content: '';
+  width: 5px;
+  height: 20px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2f80ed, #27ae60);
+}
+h3 { margin: 18px 0 8px; font-size: 0.95rem; color: var(--muted); font-weight: 600; }
+
+/* ===== Nút bấm ===== */
+button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--field-border);
+  background: var(--field);
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s, border-color 0.15s;
+}
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+  box-shadow: 0 3px 10px var(--accent-soft);
+  transform: translateY(-1px);
+}
+button:active:not(:disabled) { transform: translateY(0); }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+header button { border-radius: 999px; padding: 8px 18px; }
+
+button[type='submit'] {
+  background: linear-gradient(135deg, #2f80ed, #1b64d1);
+  border-color: transparent;
+  color: #fff;
+  padding: 10px 22px;
+  align-self: flex-end;
+}
+button[type='submit']:hover:not(:disabled) { box-shadow: 0 6px 16px rgba(47, 128, 237, 0.4); }
+
+button.reset { margin-top: 16px; }
+
+.schedule td button {
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  color: #d64545;
+  border-color: rgba(214, 69, 69, 0.45);
+  background: transparent;
+}
+.schedule td button:hover:not(:disabled) {
+  background: rgba(214, 69, 69, 0.1);
+  border-color: #d64545;
+  box-shadow: none;
+}
+
+/* ===== Ô nhập ===== */
+input, select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--field-border);
+  background: var(--field);
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.app.dark select option { background: #1f2430; color: #e8eaf0; }
+
+/* ===== Bảng ===== */
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--card-border);
+  white-space: nowrap;
+}
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--card-border);
+  text-align: left;
+}
+tbody tr:nth-child(even) { background: var(--row-alt); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.15s; }
+tbody tr:hover { background: var(--accent-soft); }
+
+/* Bảng xếp hạng */
+.standings td:nth-child(1),
+.standings td:nth-child(n + 3) { text-align: center; }
+.standings th:nth-child(1),
+.standings th:nth-child(n + 3) { text-align: center; }
+.standings td:nth-child(2) { font-weight: 600; }
+.standings td:last-child { font-weight: 800; font-size: 1.02rem; }
+.standings tbody tr:first-child td:first-child {
+  box-shadow: inset 4px 0 0 var(--gold);
+  font-weight: 800;
+}
+.standings tbody tr:first-child td:nth-child(2)::after {
+  content: ' 🏆';
+}
+.standings tr.last td { color: #c62828; }
+
+/* Lịch thi đấu */
+.schedule input { width: 70px; text-align: center; padding: 6px 8px; }
+.schedule tbody tr.draw { background: rgba(255, 193, 7, 0.25); }
+.renders {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* ===== Thanh công cụ lọc / tìm ===== */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 22px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: var(--field);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+.toolbar label { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; }
+.toolbar > span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ===== Thống kê ===== */
+.stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+.stats li {
+  padding: 14px 16px;
+  background: var(--field);
+  border: 1px solid var(--card-border);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  font-weight: 600;
+}
+.stats li:nth-child(2) { border-left-color: #27ae60; }
+.stats li:nth-child(3) { border-left-color: #9b51e0; }
+.stats li:nth-child(4) { border-left-color: var(--gold); }
+
+.distribution { list-style: none; margin: 0; padding: 0; }
+.distribution li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+  font-weight: 600;
+}
+.bar {
+  display: inline-block;
+  height: 10px;
+  min-width: 4px;
+  border-radius: 999px;
+  background: #2f80ed;
+  transition: width 0.35s ease;
+}
+.distribution li:nth-child(2) .bar { background: #f5b301; }
+.distribution li:nth-child(3) .bar { background: #e5566d; }
+
+/* ===== Form thêm trận ===== */
+.add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 160px; }
+.field label, .goal-fields label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+
+.error { color: #c62828; margin: 2px 0 0; font-size: 0.85rem; font-weight: 600; }
+.app.dark .error { color: #ff8a80; }
+
+/* ===== Mục tiêu điểm ===== */
+.goal-fields { display: flex; flex-wrap: wrap; gap: 16px; }
+.goal-fields label { display: flex; flex-direction: column; gap: 6px; }
+.goal-result {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(47, 128, 237, 0.3);
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+/* ===== Thông báo nổi ===== */
+.notice {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #27ae60, #1e8e4f);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  animation: notice-in 0.25s ease;
+}
+@keyframes notice-in {
+  from { opacity: 0; transform: translate(-50%, -14px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ===== Màn hình nhỏ ===== */
+@media (max-width: 640px) {
+  .app { padding: 0 12px 40px; }
+  section { padding: 16px 14px; }
+  h1 { font-size: 1.3rem; }
+}
